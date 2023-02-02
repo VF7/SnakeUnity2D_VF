@@ -10,17 +10,20 @@ public class Snake : MonoBehaviour
 
     private TailGenerator _tailGenerator;
     private List<Segment> _tail;
+    private SnakeInput _snakeInput;
 
     private void Start() 
     {
         _tailGenerator = GetComponent<TailGenerator>();
-
+        _snakeInput = GetComponent<SnakeInput>();
         _tail = _tailGenerator.Generate();
     }
 
     private void FixedUpdate() 
     {
-        Move(_snakeHead.transform.position + _snakeHead.transform.up * (_speed * Time.fixedDeltaTime));            
+        Move(_snakeHead.transform.position + _snakeHead.transform.up * (_speed * Time.fixedDeltaTime));
+
+        _snakeHead.transform.up = _snakeInput.GetDirectionToClick(_snakeHead.transform.position);
     }
 
     private void Move(Vector3 nextPosition)
