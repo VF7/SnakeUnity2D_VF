@@ -14,7 +14,9 @@ public class SnakeInput : MonoBehaviour
     {
         var clickPosition = Input.mousePosition;
         
-        clickPosition = _mainCamera.ScreenToWorldPoint(clickPosition);
+        clickPosition = _mainCamera.ScreenToViewportPoint(clickPosition);
+        clickPosition.y = 1f;
+        clickPosition = _mainCamera.ViewportToWorldPoint(clickPosition);
         
         var direction = new Vector2(clickPosition.x - headPosition.x, clickPosition.y - headPosition.y);
         
