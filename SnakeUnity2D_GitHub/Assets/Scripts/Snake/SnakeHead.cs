@@ -32,7 +32,7 @@ public class SnakeHead : MonoBehaviour
     {
         if (other.TryGetComponent(out Bonus bonus))
         {
-            BonusPickUp?.Invoke(bonus.BonusSize);
+            BonusPickUp?.Invoke(bonus.PickUp());
             Destroy(bonus.gameObject);
         }
     }
