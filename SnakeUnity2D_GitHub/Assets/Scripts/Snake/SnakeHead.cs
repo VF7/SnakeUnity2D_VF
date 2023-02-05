@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,6 +8,7 @@ public class SnakeHead : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
 
     public event UnityAction BlockCollided;
+    public event UnityAction<int> BonusPickUp;
 
     private void Start() 
     {
@@ -25,6 +27,13 @@ public class SnakeHead : MonoBehaviour
             block.Fill();
             BlockCollided?.Invoke();
         }
-            
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.TryGetComponent(out Bonus bonus))
+        {
+            BonusPickUp?.Invoke(bonus.BonusSize);
+            Destroy(bonus.gameObject);
+        }
     }
 }
